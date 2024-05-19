@@ -1,0 +1,14 @@
+<div class="add-story-container">
+   <div class="head-section">
+      <p class="title">Add new story</p>
+   </div>
+
+   <div class="form-body">
+      <div class="fields">
+         <text-input fieldName="Story Name" id="storyName" (inputEvent)="setName($event)"></text-input>
+         <common-input-field fieldName="Story Point" id="storyPoint"
+            (inputEvent)="setPoint($event)"></common-input-field>
+         <button (click)="addStory()">Add Story</button>
+      </div>
+   </div>
+</div>

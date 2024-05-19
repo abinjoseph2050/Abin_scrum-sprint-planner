@@ -1,0 +1,115 @@
+<div class="scrum-container">
+   <div class="head-section">
+      <div class="title">
+         <img src="./../assets/images/scrum.png" alt="">
+         <p>Scrum Sprint Planner</p>
+      </div>
+
+      <div class="action">
+         @if (currentDate != '') {
+         <div class="date-time">
+            <p class="date">{{currentDate | date:'mediumDate'}}, </p>
+            <p class="time">{{currentDate | date:'mediumTime'}}</p>
+         </div>
+         }
+         <button (click)="openDialog('300ms', '150ms')">+ Add story</button>
+      </div>
+   </div>
+
+   <div class="main-contents">
+      <div class="list-all-stories">
+         <p class="list-heading">Stories and Points</p>
+         <div class="story-list">
+            @for(story of allStories; track story; let i = $index){
+            <div class="each-story" title="Select story {{story.name}}" [ngClass]="{
+               'green-story' : i % 4 == 0,
+               'orange-story' : i % 4 == 1,
+               'blue-story' : i % 4 == 2,
+               'purple-story' : i % 4 == 3,
+               'each-only-one' : allStories.length == 1
+            }">
+               <div class="left">
+                  <p class="name">{{story.name}}</p>
+                  <p class="date">Created on: {{story.date | date:'short'}}</p>
+               </div>
+
+               <div class="right">
+                  <p class="count">{{story.points}}</p>
+                  <img src="./../assets/images/delete.svg" title="Delete - {{story.name}}" (click)="deleteStory(i)">
+               </div>
+            </div>
+            }
+         </div>
+
+         @if(allStories.length){
+         <button class="clear-stories" (click)="clearAll()">Clear All Stories</button>
+         }
+
+         @if(!allStories.length){
+         <div class="no-story">
+            <p>No story available!</p>
+            <p class="create" (click)="openDialog('300ms', '150ms')">Click to create.</p>
+         </div>
+         }
+      </div>
+
+      <!-- Calculator and graph -->
+      <div class="sprint-calculator-and-graph">
+         <div class="graph">
+            <p class="heading">Stories and points graph</p>
+
+            @if(allStories.length){
+            <div class="graph-holder">
+               <div echarts [options]="storiesOptions" style="height: 150px" id="ChartId" class="graph"></div>
+            </div>
+            } @else {
+            <p class="no-graph">No story available to display the graph!</p>
+            }
+         </div>
+
+         <!-- Sprint Calculator -->
+         <div class="calculator">
+            <p class="heading">Sprint Calculator</p>
+            <div class="form-body">
+               <div class="fields">
+                  <common-input-field fieldName="Enter Target Sprint Point" id="sprintPoint"
+                     (inputEvent)="setPoint($event)"></common-input-field>
+                  <button class="auto-select" (click)="autoSelectStories()">Auto Select Stories</button>
+                  <button class="clear" (click)="clearSelected()">Clear Selected Stories</button>
+                  <button class="clear-all" (click)="clearAll()">Clear All Stories</button>
+               </div>
+            </div>
+
+            <div class="list-selected-stories">
+               <div class="story-list">
+
+                  @for(selected of selectedStories; track selected; let i = $index){
+                  <div class="each-story" [ngClass]="{
+                     'green-story' : i % 4 == 0,
+                     'orange-story' : i % 4 == 1,
+                     'blue-story' : i % 4 == 2,
+                     'purple-story' : i % 4 == 3,
+                     'each-only-one' : selectedStories.length == 1
+                  }">
+                     <div class="left">
+                        <p class="name">{{selected.name}}</p>
+                        <p class="date">Created on: {{selected.date | date:'short'}}</p>
+                     </div>
+
+                     <div class="right">
+                        <p class="count">{{selected.points}}</p>
+                     </div>
+                  </div>
+                  }
+               </div>
+
+               @if(!selectedStories.length){
+               <div class="no-story">
+                  <p>No story selected!</p>
+               </div>
+               }
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
