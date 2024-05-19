@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
     exitAnimationDuration: string
   ): void {
     const dialogRef = this.dialog.open(AddStoryComponent, {
-      width: '60vw',
+      width: '400px',
       enterAnimationDuration,
       exitAnimationDuration,
     });
