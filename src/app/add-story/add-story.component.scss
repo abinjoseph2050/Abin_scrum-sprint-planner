@@ -18,8 +18,8 @@
 
   .form-body {
     .fields {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-direction: column;
       gap: 10px;
 
       button {
