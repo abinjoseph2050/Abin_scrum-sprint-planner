@@ -31,6 +31,7 @@ export class AppComponent implements OnInit {
     this.loadChart();
   }
 
+  // function to open mat-dialog box
   openDialog(
     enterAnimationDuration: string,
     exitAnimationDuration: string
@@ -46,11 +47,13 @@ export class AppComponent implements OnInit {
     });
   }
 
+  // function calls when mat-dialog closed
   afterClosed() {
     this.allStories = this.storyService.allStories;
     this.loadChart();
   }
 
+  // function to clear all stories
   clearAll() {
     const confirmed = confirm('Are you sure you want to delete all stories?');
     if (confirmed) {
@@ -62,6 +65,7 @@ export class AppComponent implements OnInit {
     }
   }
 
+  // function to clear selected stories
   clearSelected() {
     const confirmed = confirm(
       'Are you sure you want to delete selected stories?'
@@ -72,6 +76,7 @@ export class AppComponent implements OnInit {
     }
   }
 
+  //function to delete a story
   deleteStory(id: any) {
     this.deleteActive = true;
     this.storyService.allStories.splice(id, 1);
@@ -85,6 +90,7 @@ export class AppComponent implements OnInit {
     this.sprintPoint = event;
   }
 
+  // function to automatically select stories based on target sprint points
   autoSelectStories() {
     if (this.sprintPoint != '') {
       this.selectedStories = [];
@@ -110,6 +116,7 @@ export class AppComponent implements OnInit {
     }
   }
 
+  // function to load apache echarts
   loadChart() {
     let xAxisData: any[] = [];
     let seriesData: any[] = [];
